@@ -55,7 +55,18 @@ router.post('/', projectValidator, async (req, res) => {
             await project.setTechnologies(technologies);
         }
 
-        const projectResponse = new ProjectOutputDTO(project);
+        const projectWithRelations = await Project.findByPk(project.id, {
+            include: [
+                {
+                    association: 'technologies'
+                },
+                {
+                    association: 'feedbacks'
+                }
+            ]
+        });
+
+        const projectResponse = new ProjectOutputDTO(projectWithRelations);
 
         res.status(201).json(projectResponse);
     } catch (error) {
