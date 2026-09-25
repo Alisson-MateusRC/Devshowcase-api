@@ -48,7 +48,8 @@ app.use((req, res, next) => {
 // Tratamento global de erros
 app.use(errorHandler);
 
-const PORT = 3000;
+// Porta da aplicação
+const PORT = process.env.PORT || 3000;
 
 sequelize.authenticate()
     .then(() => {
@@ -60,7 +61,7 @@ sequelize.authenticate()
         console.log('Tabelas sincronizadas com sucesso!');
 
         app.listen(PORT, () => {
-            console.log(`Servidor rodando em http://localhost:${PORT}`);
+            console.log(`Servidor rodando na porta ${PORT}`);
         });
     })
     .catch((error) => {
