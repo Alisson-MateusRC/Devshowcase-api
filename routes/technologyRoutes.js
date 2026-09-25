@@ -7,7 +7,30 @@ const TechnologyOutputDTO = require('../dto/output/TechnologyOutputDTO');
 
 const router = express.Router();
 
-// Criar tecnologia
+/**
+ * @swagger
+ * /api/technologies:
+ *   post:
+ *     summary: Cria uma nova tecnologia
+ *     description: Cadastra uma tecnologia que pode ser associada aos projetos.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: JavaScript
+ *     responses:
+ *       201:
+ *         description: Tecnologia criada com sucesso.
+ *       400:
+ *         description: Dados inválidos.
+ */
 router.post('/', technologyValidator, async (req, res) => {
     const errors = validationResult(req);
 
@@ -32,7 +55,18 @@ router.post('/', technologyValidator, async (req, res) => {
     }
 });
 
-// Listar tecnologias
+/**
+ * @swagger
+ * /api/technologies:
+ *   get:
+ *     summary: Lista as tecnologias
+ *     description: Retorna todas as tecnologias cadastradas.
+ *     responses:
+ *       200:
+ *         description: Lista de tecnologias retornada com sucesso.
+ *       500:
+ *         description: Erro interno do servidor.
+ */
 router.get('/', async (req, res) => {
     try {
         const technologies = await Technology.findAll();

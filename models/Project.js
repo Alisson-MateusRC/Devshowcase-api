@@ -26,6 +26,18 @@ const Project = sequelize.define('Project', {
     profileId: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+
+    upvotes: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+
+    averageRating: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        defaultValue: 0
     }
 });
 

@@ -9,13 +9,7 @@ const feedbackValidator = [
         .notEmpty()
         .withMessage('A avaliação é obrigatória')
         .isInt({ min: 1, max: 5 })
-        .withMessage('A avaliação deve ser um número entre 1 e 5'),
-
-    body('projectId')
-        .notEmpty()
-        .withMessage('O projectId é obrigatório')
-        .isInt()
-        .withMessage('O projectId deve ser um número inteiro')
+        .withMessage('A avaliação deve ser um número entre 1 e 5')
 ];
 
 module.exports = feedbackValidator;

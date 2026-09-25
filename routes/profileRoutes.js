@@ -7,7 +7,34 @@ const ProfileOutputDTO = require('../dto/output/ProfileOutputDTO');
 
 const router = express.Router();
 
-// Criar perfil
+/**
+ * @swagger
+ * /api/profiles:
+ *   post:
+ *     summary: Cria um novo perfil
+ *     description: Cria um perfil de desenvolvedor.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - bio
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: João Silva
+ *               bio:
+ *                 type: string
+ *                 example: Estudante de Tecnologia em Sistemas para Internet
+ *     responses:
+ *       201:
+ *         description: Perfil criado com sucesso.
+ *       400:
+ *         description: Dados inválidos.
+ */
 router.post('/', profileValidator, async (req, res) => {
     const errors = validationResult(req);
 
@@ -32,7 +59,27 @@ router.post('/', profileValidator, async (req, res) => {
     }
 });
 
-// Buscar perfil por ID
+/**
+ * @swagger
+ * /api/profiles/{id}:
+ *   get:
+ *     summary: Busca um perfil por ID
+ *     description: Retorna um perfil de desenvolvedor e seus projetos.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID do perfil.
+ *     responses:
+ *       200:
+ *         description: Perfil encontrado com sucesso.
+ *       404:
+ *         description: Perfil não encontrado.
+ *       500:
+ *         description: Erro interno do servidor.
+ */
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;

@@ -6,6 +6,9 @@ class ProjectOutputDTO {
         this.url = project.url;
         this.profileId = project.profileId;
 
+        this.upvotes = project.upvotes;
+        this.averageRating = project.averageRating;
+
         this.technologies = project.technologies
             ? project.technologies.map(technology => ({
                 id: technology.id,

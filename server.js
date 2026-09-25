@@ -8,9 +8,17 @@ const technologyRoutes = require('./routes/technologyRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const feedbackRoutes = require('./routes/feedbackRoutes');
 
+const errorHandler = require('./middlewares/errorHandler');
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger/swagger');
+
 const app = express();
 
 app.use(express.json());
+
+// Documentação Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Rotas de Profile
 app.use('/api/profiles', profileRoutes);
@@ -30,13 +38,23 @@ app.get('/', (req, res) => {
     });
 });
 
+// Tratamento de rotas não encontradas
+app.use((req, res, next) => {
+    const error = new Error('Rota não encontrada');
+    error.status = 404;
+    next(error);
+});
+
+// Tratamento global de erros
+app.use(errorHandler);
+
 const PORT = 3000;
 
 sequelize.authenticate()
     .then(() => {
         console.log('Conexão com PostgreSQL realizada com sucesso!');
 
-        return sequelize.sync();
+        return sequelize.sync({ alter: true });
     })
     .then(() => {
         console.log('Tabelas sincronizadas com sucesso!');
