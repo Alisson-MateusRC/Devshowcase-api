@@ -10,11 +10,11 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000'
+                url: 'https://devshowcase-api-aozd.onrender.com'
             }
         ]
     },
-    apis: ['./routes/*.js']
+    apis: ['./routes/*.js'],
 };
 
 const swaggerSpec = swaggerJSDoc(options);
